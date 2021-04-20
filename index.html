@@ -1,0 +1,27 @@
+<script type="text/javascript">
+    let index = 0;
+    function createElement() {
+        let btnElmnt = document.createElement("button");
+        btnElmnt.innerText = "Not Clicked Button "+ (++index);
+        btnElmnt.id = "btn-"+index;
+        btnElmnt.onclick = updateBtn("btn-"+index);
+        document.body.appendChild(btnElmnt);
+    }
+
+    function updateBtn(btnId) {
+        setTimeout(()=>{
+            let btn = document.getElementById(btnId);
+            console.log("Auto Triggered Button Success !!!!" + btnId);
+            if(btn) {
+                btn.style.backgroundColor = "steelblue";
+                btn.style.color = "white";
+                btn.innerText="Clicked Button "+btnId.split("-")[1]+" !!!!";
+            }
+        },500)
+    }
+
+    setInterval(()=>{
+        createElement();
+    },5000);
+
+</script>

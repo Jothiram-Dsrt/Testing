@@ -1,0 +1,11 @@
+<script src="https://cdn.socket.io/3.1.3/socket.io.min.js" integrity="sha384-cPwlPLvBTa3sKAgddT6krw0cJat7egBga3DJepJyrLl4Q9/5WLra3rrnMcyTyOnh" crossorigin="anonymous"></script>
+<script>
+  // Connect to your server
+  var socket = io.connect('http://192.168.1.105:3000');
+  // Emit your login event
+  socket.emit('login', {username: 'test', password: 'test'});
+  // When you retrieve the login response
+  socket.on('login-response', function (data) {
+    console.log(data);
+  });
+</script>

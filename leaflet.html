@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+	
+	<title>Leaflet Buffer</title>
+
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+	
+	
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
+
+
+	<style>
+		html, body {
+			height: 100%;
+			margin: 0;
+		}
+		#map {
+			width: 100%;
+			height: 100%;
+		}
+		
+		
+	</style>
+
+	
+</head>
+<body>
+
+<div id='map'></div>
+<script>
+	
+	
+	 var osm = L.tileLayer("https://{s}.tile.osm.org/{z}/{x}/{y}.png", {
+      attribution: ""
+    }).setZIndex(-1);
+    
+	var googleHybrid = L.tileLayer(
+      "https://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}",
+      {
+        maxZoom: 50,
+        subdomains: ["mt0", "mt1", "mt2", "mt3"]
+      }
+    ).setZIndex(-1);
+    var googleStreets = L.tileLayer(
+      "https://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}",
+      {
+        maxZoom: 50,
+        subdomains: ["mt0", "mt1", "mt2", "mt3"]
+      }
+    ).setZIndex(-1);
+    var googleTerrain = L.tileLayer(
+      "https://{s}.google.com/vt/lyrs=p&x={x}&y={y}&z={z}",
+      {
+        maxZoom: 50,
+        subdomains: ["mt0", "mt1", "mt2", "mt3"]
+      }
+    ).setZIndex(-1);
+
+    var googleSat = L.tileLayer(
+      "https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}",
+      {
+        maxZoom: 50,
+        subdomains: ["mt0", "mt1", "mt2", "mt3"]
+      }
+    ).setZIndex(-1);
+    var empty = L.tileLayer("");
+    var baseLayers = {
+      "No Basemap": empty,
+           "Open Street": osm,
+            "Google Streets": googleStreets,
+           "Google Satellite": googleSat
+    };
+    var lat = 28.635308;
+    var long = 77.22496;
+    var map = L.map('map', {
+		center: [8.730036206641993, 77.7220462610368],
+		zoom: 14,
+		layers: [googleStreets]
+	});
+
+	var overlays = {
+		
+	};
+
+L.control.layers(baseLayers, overlays,{collapsed:false}).addTo(map);
+
+var latLngArr = [
+"8.730036206641993, 77.7220462610368",
+"8.733175136224736, 77.72251832982079",
+"8.735168766973072, 77.72264707585279",
+"8.736823048225947, 77.72234666844479",
+"8.736823048225947, 77.7222608377568",
+"8.737544142885275, 77.7215312769088"
+]
+
+var pointA = new L.LatLng(28.635308, 77.22496);
+var pointB = new L.LatLng(28.984461, 77.70641);
+var pointList = [];
+latLngArr.forEach((latLng)=>{
+    let splittedLoc = latLng.split(", ");
+    pointList.push(new L.LatLng(splittedLoc[0], splittedLoc[1]))
+});
+
+var firstpolyline = new L.Polyline(pointList, {
+    color: '#669df6',
+    weight: 8,
+    opacity: 1,
+    smoothFactor: 1
+});
+firstpolyline.addTo(map);
+var marker = L.marker([8.737544142885275, 77.7215312769088]).addTo(map);
+
+</script>
+
+</body>
+</html>
